@@ -18,16 +18,14 @@ import { db } from '../firebase/config';
 const problemsRef = collection(db, 'problems');
 
 export async function fetchAllProblems() {
-  const q = query(problemsRef, orderBy('createdAt', 'desc'));
-  const snap = await getDocs(q);
+  const snap = await getDocs(problemsRef);
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
 }
 
 export async function fetchProblemsByCategory(macroCategory) {
   const q = query(
     problemsRef,
-    where('macroCategory', '==', macroCategory),
-    orderBy('createdAt', 'desc')
+    where('macroCategory', '==', macroCategory)
   );
   const snap = await getDocs(q);
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
