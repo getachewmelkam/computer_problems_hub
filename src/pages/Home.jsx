@@ -44,7 +44,6 @@ export default function Home() {
     for (const p of problems) {
       if (counts[p.macroCategory] !== undefined) counts[p.macroCategory] += 1;
     }
-    console.log('Problems fetched:', problems.length, 'counts:', counts);
     return counts;
   }, [problems]);
 
