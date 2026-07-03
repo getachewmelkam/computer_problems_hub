@@ -1,0 +1,19 @@
+rules_version = '2';
+
+// Deploy with: firebase deploy --only firestore:rules
+// Public visitors can only READ problems and active announcements.
+// Only authenticated admin accounts (created in Firebase Auth) can write.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /problems/{problemId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null;
+    }
+
+    match /announcements/{announcementId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null;
+    }
+  }
+}
