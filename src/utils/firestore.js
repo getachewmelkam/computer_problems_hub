@@ -62,16 +62,14 @@ const announcementsRef = collection(db, 'announcements');
 export async function fetchActiveAnnouncements() {
   const q = query(
     announcementsRef,
-    where('isActive', '==', true),
-    orderBy('createdAt', 'desc')
+    where('isActive', '==', true)
   );
   const snap = await getDocs(q);
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
 }
 
 export async function fetchAllAnnouncements() {
-  const q = query(announcementsRef, orderBy('createdAt', 'desc'));
-  const snap = await getDocs(q);
+  const snap = await getDocs(announcementsRef);
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
 }
 
